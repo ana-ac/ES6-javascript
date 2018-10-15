@@ -1,2 +1,2 @@
 # vanillaJS
-rediscovering vanilla javascript
+  Rediscovering vanilla javascript
