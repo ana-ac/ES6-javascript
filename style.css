@@ -1,4 +1,18 @@
 html {
-    background: url(assets/paisaje.jpg) bottom center;
+    background: url(assets/paisaje.jpg) top center;
     background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    /*background: linear-gradient( rgba(20,20,20, 0.5), rgba(20,20,20, .5));*/
+}
+
+header {
+    text-align: center;
+    font-family: monospace;
+    font-size: 22px;
 }
