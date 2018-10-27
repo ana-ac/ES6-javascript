@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas class="draw draw1" width="500" height="500"></canvas>
+<canvas class="draw draw2" width="500" height="500"></canvas>
+<script>
+
+    //canvas.width = window.innerWidth;
+    //canvas.height = window.innerHeight;
+
+    //let isDrawing = false;
+    //let lastX = false;
+    //let lastY = false;
+    //let hue = 0;
+    //let direction = true;
+
+    function draw(e) {
+        if (!isDrawing) return;
+
+        //ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+
+        //hue++;
+        //if (hue >= 360) hue = 0;
+
+        //if (ctx.lineWidth >= 300 || ctx.lineWidth <= 1) direction = !direction;
+        //(direction) ?  ctx.lineWidth++ : ctx.lineWidth--;
+    }
+
+    function drawInOtherCanvas(e) {
+        console.log('drawInOtherCanvas');
+        console.log(e.offsetX);
+        console.log(e.offsetY);
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        console.log();
+    }
+
+    //functions
+    function buildContext(item) {
+
+        const ctx = item.getContext('2d');
+
+        // global style context
+        ctx.strokeStyle = "#BADA55";
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = '80';
+
+        return ctx;
+    }
+
+    function buildCustomStyle(item) {
+
+        const customStyleElements = {};
+
+        // custom style contextt
+        var globalCompositeOperation = ['multiply', 'overlay', 'lighten']; // the number of these values must to be equal or greather than number of canvas elements
+
+        if (globalCompositeOperation.length === 0) {
+            throw 'There are more canvas elements than global Composite Operation elements';
+        }
+
+        customStyleElements.globalCompositeOperation = globalCompositeOperation[Math.floor(Math.random()*globalCompositeOperation.length)];
+        const positionElement = globalCompositeOperation.indexOf(customStyleElements.globalCompositeOperation);
+        globalCompositeOperation.splice(positionElement,1);
+
+        return customStyleElements;
+    }
+
+    function initCanvas() {
+
+        const canvasGroup  = document.querySelectorAll('.draw');
+        const canvasGroupItems = {};
+        canvasGroup.forEach(item => {
+            const itemName = index + 1;
+            canvasGroupItems[itemName] = {};
+            canvasGroupItems[itemName].ctx = buildContext(item);
+            canvasGroupItems[itemName].customStyle = buildCustomStyle(item);
+            canvasGroupItems[itemName].instance = {'isDrawing': false, 'lastX': 0, 'lastY': 0};
+        });
+
+        if (Object.keys(canvasGroupItems).length === 0) {
+            throw "There aren't canvas object" ;
+        }
+
+        return canvasGroupItems;
+
+    }
+
+
+    //canvas.addEventListener('mousemove', draw);
+    //canvas.addEventListener('mouseout', drawInOtherCanvas);
+    //canvas.addEventListener('mousedown', (e) => {
+    //    isDrawing = true;
+    //    [lastX, lastY] = [e.offsetX, e.offsetY];
+    //});
+    //canvas.addEventListener('mouseup', () => isDrawing = false);
+
+    class Canvas {
+        //constructor
+        constructor() {
+            //properties
+            this.ctx =  '';
+            this.custom_style = '';
+        }
+
+        //getters and setters
+        get ctx() {
+            return this.ctx;
+        }
+        set ctx(value) {
+            this.ctx = value;
+        }
+        get customStyle() {
+            return this.custom_style;
+        }
+        set customStyle(value) {
+            this.custom_style = value;
+        }
+
+        //methods
+        /*buildContext = function() {
+            console.log('buildContext');
+        };
+
+        buildCustomStyle =  function() {
+            console.log('buildCustomStyle');
+        };*/
+
+    }
+
+    // main
+    const canvas = new Canvas();
+
+    //console.log(canvas);
+    //canvas.init();
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
