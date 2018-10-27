@@ -9,7 +9,7 @@
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    const dogs = [{ name: 'Snickers', age: 2, ageDog : 14 }, { name: 'hugo', age: 8 }];
 
     function makeGreen() {
       const p = document.querySelector('p');
@@ -18,29 +18,68 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    const name = 'Marta';
+    console.log(`hello ${name}`);
+    console.log(`hello %s!!!!`, name);
 
     // Styled
+    console.log('%chellooo!!!','color:purple;font-size:30px;');
 
     // warning!
+    console.warn('OHHHHH!!! Nooo');
 
     // Error :|
+    console.error('Shit!!');
 
     // Info
+    console.info('Sundays are the God Day');
 
     // Testing
+    const pElement = document.querySelector('p');
+    console.assert(pElement.classList.contains('ouch'), "It's wrong");
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.log(pElement);
+    console.dir(pElement);
 
     // Grouping together
+    dogs.forEach(item => {
+        console.groupCollapsed(`${item.name}`);
+        console.log(`This is ${item.name}`);
+        console.log(`${item.name} is ${item.age} years old`);
+        console.groupEnd(`${item.name}`);
+    });
 
     // counting
+    console.count('steve');
+    console.count('wes');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('steve');
+    console.count('wes');
+    console.count('wes');
 
     // timing
+    console.time('fetching data')
+    fetch('https://api.github.com/users/ana-ac')
+        .then(data => data.json())
+        .then(data => {
+            console.timeEnd('fetching data')
+            console.log(data);
+        });
 
+    //table
+    console.table(dogs);
   </script>
 </body>
 </html>
